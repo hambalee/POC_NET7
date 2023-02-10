@@ -4,7 +4,7 @@ namespace POC_NET7.Models;
 
 public class UserDbContext : DbContext
 {
-    DbSet<User> Users { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
