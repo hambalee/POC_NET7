@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using POC_NET7.Models;
+using POC_NET7.Services;
 
 namespace POC_NET7.Controllers;
 
@@ -15,7 +16,7 @@ public class UserController : ControllerBase
         user.Firstname = "Lee";
         user.Lastname = "Hambalee";
         user.YearOfBirth = 1995;
-        user.Age = DateTime.UtcNow.Year - user.YearOfBirth;
+        user.Age = new Util().CalculateAge(user.YearOfBirth);
         return Ok(user);
     }
 }
