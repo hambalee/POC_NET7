@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using POC_NET7.Models;
 using POC_NET7.Services;
 
@@ -13,7 +14,7 @@ public class UserController : ControllerBase
     public IActionResult GetUsers()
     {
         UserDbContext dbContext = new UserDbContext();
-        List<User> users = dbContext.Users.ToList();
+        List<User> users = dbContext.Users.Include(e => e.Phones).ToList();
         return Ok(users);
     }
 
@@ -26,6 +27,7 @@ public class UserController : ControllerBase
         user.Lastname = userReq.Lastname;
         user.YearOfBirth = userReq.YearOfBirth;
         user.Age = new Util().CalculateAge(user.YearOfBirth);
+        user.Phones = userReq.Phones;
         dbContext.Users.Add(user);
         dbContext.SaveChanges();
         return Ok(user);
