@@ -17,14 +17,14 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
-    [HttpPost]
-    public IActionResult InsertUser()
+    [HttpPost()]
+    public IActionResult InsertUser(User userReq)
     {
         UserDbContext dbContext = new UserDbContext();
         User user = new User();
-        user.Firstname = "Lee";
-        user.Lastname = "Hambalee";
-        user.YearOfBirth = 1995;
+        user.Firstname = userReq.Firstname;
+        user.Lastname = userReq.Lastname;
+        user.YearOfBirth = userReq.YearOfBirth;
         user.Age = new Util().CalculateAge(user.YearOfBirth);
         dbContext.Users.Add(user);
         dbContext.SaveChanges();
