@@ -5,10 +5,13 @@ namespace POC_NET7.Services;
 
 public class UserService
 {
-    // Dependency Injection
+
     public IDopaService _dopaService;
-    public UserService(IDopaService dopaService) {
+    public IUserRepository _userRepository;
+    // Dependency Injection
+    public UserService(IDopaService dopaService,IUserRepository userRepository) {
         _dopaService = dopaService;
+        _userRepository = userRepository;
     }
     public void InsertUser(User userReq)
     {
@@ -20,12 +23,12 @@ public class UserService
         user.Age = new Util().CalculateAge(user.YearOfBirth);
         user.Phones = userReq.Phones;
         user.Address = _dopaService.getAddressByPostCode(10270);
-        userRepository.InsertUser(user);
+        _userRepository.InsertUser(user);
     }
 
     public List<User> GetUsers()
     {
         UserRepository userRepository = new UserRepository();
-        return userRepository.GetUsers();
+        return _userRepository.GetUsers();
     }
 }
