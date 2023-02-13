@@ -7,5 +7,6 @@ public class User
     public string Lastname { get; set; } = "";
     public int YearOfBirth { get; set; }
     public int Age { get; set; }
-    public List<Phone> Phones {get; set;}
+    public string Address { get; set; }
+    public List<Phone> Phones { get; set; }
 }

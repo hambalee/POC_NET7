@@ -9,6 +9,11 @@ namespace POC_NET7.Controllers;
 [Route("api/users")]
 public class UserController : ControllerBase
 {
+    public IDopaService _dopaService;
+    //Dependency Injection
+    public UserController(IDopaService dopaService) {
+        _dopaService = dopaService;
+    }
 
     [HttpGet()]
     public IActionResult GetUsers()
@@ -28,6 +33,7 @@ public class UserController : ControllerBase
         user.YearOfBirth = userReq.YearOfBirth;
         user.Age = new Util().CalculateAge(user.YearOfBirth);
         user.Phones = userReq.Phones;
+        user.Address = _dopaService.getAddressByPostCode(10270);
         dbContext.Users.Add(user);
         dbContext.SaveChanges();
         return Ok(user);
