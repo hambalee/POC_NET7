@@ -18,8 +18,8 @@ public class UserController : ControllerBase
     [HttpGet()]
     public IActionResult GetUsers()
     {
-        UserDbContext dbContext = new UserDbContext();
-        List<User> users = dbContext.Users.Include(e => e.Phones).ToList();
+        UserService userService = new UserService(_dopaService);
+        List<User> users = userService.GetUsers();
         return Ok(users);
     }
 

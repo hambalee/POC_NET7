@@ -22,4 +22,10 @@ public class UserService
         user.Address = _dopaService.getAddressByPostCode(10270);
         userRepository.InsertUser(user);
     }
+
+    public List<User> GetUsers()
+    {
+        UserRepository userRepository = new UserRepository();
+        return userRepository.GetUsers();
+    }
 }
